@@ -22,7 +22,9 @@ class TodoFactory extends Factory
     public function definition()
     {
         return [
-            //
+          'name' => $this->faker->unique()->name,
+          'description' => $this->faker->sentence(6),
+          'completed' => false,
         ];
     }
 }
