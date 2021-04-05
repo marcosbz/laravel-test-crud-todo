@@ -37,6 +37,10 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         //
+        $todo = new Todo;
+        $todo->name = $request->name;
+        $todo->save();
+        return redirect()->back();
     }
 
     /**
@@ -45,9 +49,10 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function show(Todo $todo)
+    public function show($id)
     {
         //
+        return view('todos.show')->with('todo',Todo::find($id));
     }
 
     /**

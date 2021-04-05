@@ -18,3 +18,5 @@ Route::get('/', function () {
     return view('start');
 });
 Route::get('todos/index', [TodoController::class, 'index'])->name('todos.index');
+Route::get('todos/show/{id}', [TodoController::class, 'show'])->name('todos.show');
+Route::post('todos/store', [TodoController::class, 'store'])->name('todos.store');
