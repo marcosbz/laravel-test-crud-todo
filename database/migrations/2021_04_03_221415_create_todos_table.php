@@ -17,8 +17,8 @@ class CreateTodosTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->text('description')->default('empty');
-            $table->boolean('completed')->default(false);
+            $table->text('description');
+            $table->boolean('completed');
         });
     }
 
