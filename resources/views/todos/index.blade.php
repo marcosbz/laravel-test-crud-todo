@@ -41,6 +41,11 @@
                 <li class="list-group-item d-flex justify-content-between">
                     {{ $todo->name }}
                     <a href={{ route('todos.show', ['id' => $todo->id]) }} class="btn btn-primary btn-sm">View</a>
+                    <form class="" action={{ route('todos.destroy', ['id' => $todo->id]) }} method="post">
+                      @csrf
+                      @method('DELETE')
+                      <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                    </form>
                 </li>
               @endforeach
             </ul>
