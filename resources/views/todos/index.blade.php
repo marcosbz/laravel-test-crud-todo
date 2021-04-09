@@ -41,11 +41,21 @@
                 <li class="list-group-item d-flex justify-content-between">
                     {{ $todo->name }}
                     <a href={{ route('todos.show', ['id' => $todo->id]) }} class="btn btn-primary btn-sm">View</a>
+                    <a href={{ route('todos.edit', ['id' => $todo->id]) }} class="btn btn-secondary btn-sm">Edit</a>
                     <form class="" action={{ route('todos.destroy', ['id' => $todo->id]) }} method="post">
                       @csrf
                       @method('DELETE')
                       <button class="btn btn-danger btn-sm" type="submit">Delete</button>
                     </form>
+                    @if (!$todo->completed)
+                      <form class="" action="{{ route('todos.completed', ['id' => $todo->id]) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <button class='btn btn-info btn-sm' type="submit">Mark as completed</button>
+                      </form>
+                    @else
+                      Completed!
+                    @endif
                 </li>
               @endforeach
             </ul>

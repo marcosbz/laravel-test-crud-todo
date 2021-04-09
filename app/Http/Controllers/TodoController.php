@@ -61,9 +61,10 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Todo $todo)
+    public function edit($id)
     {
         //
+        return view('todos.edit')->with('todo', Todo::find($id));
     }
 
     /**
@@ -73,11 +74,31 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Todo $todo)
+    public function update(Request $request, $id)
     {
         //
+        $todo = Todo::find($id);
+        $todo->name = $request->name;
+        $todo->description = $request->description;
+        $todo->save();
+        return redirect()->route('todos.index');
     }
 
+    /**
+     * Set specified Todo as completed.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Todo  $todo
+     * @return \Illuminate\Http\Response
+     */
+    public function completed(Request $request, $id)
+    {
+        //
+        $todo = Todo::find($id);
+        $todo->completed = true;
+        $todo->save();
+        return redirect()->back();
+    }
     /**
      * Remove the specified resource from storage.
      *
