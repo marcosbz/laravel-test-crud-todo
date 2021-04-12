@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class TodoController extends Controller
 {
@@ -37,9 +38,13 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+          'name' => 'required|min:3'
+        ]);
         $todo = new Todo;
         $todo->name = $request->name;
         $todo->save();
+        Session::flash('submit-status', ['status'=>'success', 'message'=>'created succesfully']);
         return redirect()->back();
     }
 
@@ -81,6 +86,7 @@ class TodoController extends Controller
         $todo->name = $request->name;
         $todo->description = $request->description;
         $todo->save();
+        Session::flash('submit-status', ['status'=>'success', 'message'=>'modified succesfully']);
         return redirect()->route('todos.index');
     }
 
@@ -97,6 +103,7 @@ class TodoController extends Controller
         $todo = Todo::find($id);
         $todo->completed = true;
         $todo->save();
+        Session::flash('submit-status', ['status'=>'success', 'message'=>'modified succesfully']);
         return redirect()->back();
     }
     /**
